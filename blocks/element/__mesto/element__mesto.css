@@ -1,0 +1,19 @@
+.element__mesto {
+    color: #000000;
+    font-size: 24px;
+    line-height: 29.05px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 900;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+@media screen and (max-width: 319px) {
+    .element__mesto {
+      font-size: 16px;
+      line-height: 18px;
+    }
+  }

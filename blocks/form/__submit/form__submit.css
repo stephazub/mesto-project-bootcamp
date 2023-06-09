@@ -1,0 +1,23 @@
+.form__submit {
+    border: none;
+    color: rgba(256, 256, 256, 1);
+    font-family: 'Inter', sans-serif;
+    font-size: 18px;
+    line-height: 22px;
+    font-weight: 400;
+    padding: 14px 124px 14px 125px;
+    margin: 0;
+    background-color: rgba(0, 0, 0, 1);
+  }
+
+  .form__submit:hover {
+    background-color: rgba(0, 0, 0, .8);
+  }
+
+  @media screen and (max-width: 450px) {
+    .form__submit {
+      font-size: 14px;
+      line-height: 17px;
+      padding: 14px 82px 14px 82px;
+    }
+  }
