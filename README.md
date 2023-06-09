@@ -11,3 +11,4 @@
 * для едоктирования содержимого на странице использутся модальные окна.
 
 ### Ссылка на GitHub Pages:
+https://stephazub.github.io/mesto-project-bootcamp/
