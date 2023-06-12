@@ -19,54 +19,54 @@
           <div class="profile__info">
             <div class="profile__title">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <button class="profile__edit-button"></button>
+              <button class="profile__edit-button" type="button"></button>
             </div>
             <p class="profile__subtitle">Исследователь океана</p>
           </div>
         </div>  
-        <button class="profile__add-button"></button>
+        <button class="profile__add-button" type="button"></button>
       </section>
       <section class="elements">
         <div class="element">
           <img class="element__img" src="./images/karachaevsk.jpg" alt="Карачаевск">
           <div class="element__caption">
-            <p class="element__mesto">Карачаевск</p>
-            <button class="element__like element__like_disabled"></button>
+            <h2 class="element__mesto">Карачаевск</h2>
+            <button class="element__like" type="button"></button>
           </div>
         </div>
         <div class="element">
           <img class="element__img" src="./images/elbrus.png" alt="Эльбрус">
           <div class="element__caption">
-            <p class="element__mesto">Гора Эльбрус</p>
-            <button class="element__like element__like_disabled"></button>
+            <h2 class="element__mesto">Гора Эльбрус</h2>
+            <button class="element__like" type="button"></button>
           </div>
         </div>
         <div class="element">
           <img class="element__img" src="./images/dombay.png" alt="Домбай">
           <div class="element__caption">
-            <p class="element__mesto">Домбай</p>
-            <button class="element__like element__like_disabled"></button>
+            <h2 class="element__mesto">Домбай</h2>
+            <button class="element__like" type="button"></button>
           </div>
         </div>
         <div class="element">
           <img class="element__img" src="./images/elbrus.png" alt="Эльбрус">
           <div class="element__caption">
-            <p class="element__mesto">Гора Эльбрус</p>
-            <button class="element__like element__like_disabled"></button>
+            <h2 class="element__mesto">Гора Эльбрус</h2>
+            <button class="element__like" type="button"></button>
           </div>
         </div>
         <div class="element">
           <img class="element__img" src="./images/dombay.png" alt="Домбай">
           <div class="element__caption">
-            <p class="element__mesto">Домбай</p>
-            <button class="element__like element__like_disabled"></button>
+            <h2 class="element__mesto">Домбай</h2>
+            <button class="element__like" type="button"></button>
           </div>
         </div>
         <div class="element">
           <img class="element__img" src="./images/karachaevsk.jpg" alt="Карачаево-Черкесия">
           <div class="element__caption">
-            <p class="element__mesto">Карачаево-Черкесия</p>
-            <button class="element__like element__like_disabled"></button>
+            <h2 class="element__mesto">Карачаево-Черкесия</h2>
+            <button class="element__like" type="button"></button>
           </div>
         </div>
       </section>
@@ -75,13 +75,15 @@
       <p class="footer__copyrigth">© 2020 Mesto Russia</p>
     </footer>
     <div class="popup">
-      <form class="form">
+      <div class="popup__container">
         <button class="form__close-button"></button>
-        <h2 class="form__title">Редактировать профиль</h3>
-        <input class="form__input-name" type="text" name="name" required>
-        <input class="form__input-subtitle" type="text" name="subtitle" required>
-        <button class="form__submit" type="submit">Сохранить</button>
-      </form>
+        <form class="form" name="info">
+          <h3 class="form__title">Редактировать профиль</h3>
+          <input class="form__input" type="text" name="name" required>
+          <input class="form__input" type="text" name="subtitle" required>
+          <button class="form__submit" type="submit">Сохранить</button>
+        </form>
+      </div>  
     </div>
   </body>
 </html>

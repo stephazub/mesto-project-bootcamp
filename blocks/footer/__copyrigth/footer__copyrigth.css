@@ -1,6 +1,6 @@
 .footer__copyrigth {
   color: #545454;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
   font-size: 18px;
   line-height: 22px;
   font-weight: 400;
@@ -10,7 +10,7 @@
 
 @media screen and (max-width: 767px) {
   .footer__copyrigth {
-    margin: 67px 0 60px 19px;
+    margin: 48px 0 36px 19px;
     font-size: 14px;
     line-height: 17px;
   }

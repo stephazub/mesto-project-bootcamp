@@ -3,11 +3,13 @@
   width: 24px;
   height: 24px;
   background-color: #000000;
-  background-image: url(../../../images/pencil.png);
+  background-image: url(../../../images/pencil.svg);
   background-position: center;
-  background-size: 7px 7px;
+  background-size: 10px 10px;
   background-repeat: no-repeat;
   display: block;
+  cursor: pointer;
+  margin: 0;
 }
 
 .profile__edit-button:hover {

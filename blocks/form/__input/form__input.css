@@ -1,8 +1,8 @@
-.form__input-name {
+.form__input {
   border: none;
   border-bottom: 1px solid rgba(0, 0, 0, .2);
   color: rgba(0, 0, 0, 1);
-  font-family: 'Inter', sans-serif;
+  font-family: 'Inter', Arial, sans-serif;
   font-size: 14px;
   line-height: 17px;
   font-weight: 400;

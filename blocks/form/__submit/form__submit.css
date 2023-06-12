@@ -1,13 +1,14 @@
 .form__submit {
     border: none;
     color: rgba(256, 256, 256, 1);
-    font-family: 'Inter', sans-serif;
+    font-family: 'Inter', Arial, sans-serif;
     font-size: 18px;
     line-height: 22px;
     font-weight: 400;
     padding: 14px 124px 14px 125px;
-    margin: 0;
+    margin: 18px 0 0 0;
     background-color: rgba(0, 0, 0, 1);
+    cursor: pointer;
   }
 
   .form__submit:hover {
