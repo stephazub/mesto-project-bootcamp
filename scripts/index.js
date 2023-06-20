@@ -71,6 +71,7 @@ function handleProfileFormSubmit(evt) {
 
 /*Шесть карточек «из коробки»*/
 /*Лайк карточки*/
+/*Удаление карточки*/
 cities.forEach((element) => {
   const cityCard = card.content.cloneNode(true);
   cityCard.querySelector('.element__mesto').textContent = element.name;
@@ -87,6 +88,7 @@ function openCreatePopup (popupElement) {
 
 /*Добавление карточки*/
 /*Лайк карточки*/
+/*Удаление карточки*/
 function handleCreateFormSubmit(evt) {
   evt.preventDefault();
   const cityCard = card.content.cloneNode(true);
