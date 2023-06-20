@@ -46,7 +46,6 @@ const cities = [
   }
 ];
 
-
 /*### ФУНКЦИИ ###*/
 
 /*Открытие модального окна редактироания профиля*/
@@ -71,12 +70,15 @@ function handleProfileFormSubmit(evt) {
 }
 
 /*Шесть карточек «из коробки»*/
+/*Лайк карточки*/
 cities.forEach((element) => {
   const cityCard = card.content.cloneNode(true);
   cityCard.querySelector('.element__mesto').textContent = element.name;
   cityCard.querySelector('.element__img').src = element.link;
+  cityCard.querySelector('.element__like').addEventListener('click', function (evt) {evt.target.classList.toggle('element__like_active')});
+  cityCard.querySelector('.element__delete').addEventListener('click', function(evt) {evt.target.parentElement.remove()});
   cards.append(cityCard);
-})
+});
 
 /*Открытие модального окна добавления карточки*/
 function openCreatePopup (popupElement) {
@@ -84,11 +86,14 @@ function openCreatePopup (popupElement) {
 }
 
 /*Добавление карточки*/
+/*Лайк карточки*/
 function handleCreateFormSubmit(evt) {
   evt.preventDefault();
   const cityCard = card.content.cloneNode(true);
   cityCard.querySelector('.element__mesto').textContent = createInputs[0].value;
   cityCard.querySelector('.element__img').setAttribute('src', createInputs[1].value);
+  cityCard.querySelector('.element__like').addEventListener('click', function (evt) {evt.target.classList.toggle('element__like_active')});
+  cityCard.querySelector('.element__delete').addEventListener('click', function(evt) {evt.target.parentElement.remove()});
   cards.prepend(cityCard);
   closePopup(popupElement);
 }
