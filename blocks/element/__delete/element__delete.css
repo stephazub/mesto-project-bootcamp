@@ -6,8 +6,7 @@
   height: 19px;
   margin: 0;
   padding: 0;
-  background: url(../../../images/bucket_down.svg) bottom no-repeat,
-              url(../../../images/bucket_up.svg)top no-repeat;
+  background: url(../../../images/trash.svg) center no-repeat;
   background-color: rgba(0, 0, 0, 0);
   border: none;
   cursor: pointer;

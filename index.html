@@ -27,49 +27,6 @@
         <button class="profile__add-button" type="button"></button>
       </section>
       <section class="elements">
-        <!--<div class="element">
-          <button class="element__delete" type="button"></button>
-          <img class="element__img" src="./images/karachaevsk.jpg" alt="Карачаевск">
-          <div class="element__caption">
-            <h2 class="element__mesto">Карачаевск</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img class="element__img" src="./images/elbrus.png" alt="Эльбрус">
-          <div class="element__caption">
-            <h2 class="element__mesto">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img class="element__img" src="./images/dombay.png" alt="Домбай">
-          <div class="element__caption">
-            <h2 class="element__mesto">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img class="element__img" src="./images/elbrus.png" alt="Эльбрус">
-          <div class="element__caption">
-            <h2 class="element__mesto">Гора Эльбрус</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img class="element__img" src="./images/dombay.png" alt="Домбай">
-          <div class="element__caption">
-            <h2 class="element__mesto">Домбай</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>
-        <div class="element">
-          <img class="element__img" src="./images/karachaevsk.jpg" alt="Карачаево-Черкесия">
-          <div class="element__caption">
-            <h2 class="element__mesto">Карачаево-Черкесия</h2>
-            <button class="element__like" type="button"></button>
-          </div>
-        </div>-->
       </section>
     </main>
     <footer class="footer">
@@ -78,20 +35,33 @@
     <div class="popup">
       <div class="popup__container">
         <button class="popup__close-button"></button>
-        <form class="form" name="info">
+        <form class="form form_button_profile" name="info">
           <h3 class="form__title">Редактировать профиль</h3>
-          <input class="form__input" type="text" name="name" required>
-          <input class="form__input" type="text" name="subtitle" required>
+          <input class="form__input form__input_button_profile" type="text" name="name" required>
+          <input class="form__input form__input_button_profile" type="text" name="subtitle" required>
           <button class="form__submit" type="submit">Сохранить</button>
         </form>
       </div>  
     </div>
-    <template class="element">
-      <button class="element__delete" type="button"></button>
-      <img class="element__img" src="" alt="">
-      <div class="element__caption">
-        <h2 class="element__mesto"></h2>
-        <button class="element__like" type="button"></button>
+    <div class="popup">
+      <div class="popup__container">
+        <button class="popup__close-button"></button>
+        <form class="form form_button_create" name="info">
+          <h3 class="form__title">Название</h3>
+          <input class="form__input form__input_button_create" type="text" placeholder="Новое место" name="name" required>
+          <input class="form__input form__input_button_create" type="text" placeholder="Ссылка на картинку" name="subtitle" required>
+          <button class="form__submit" type="submit">Создать</button>
+        </form>
+      </div>  
+    </div>
+    <template class="card">
+      <div class="element">    
+        <button class="element__delete" type="button"></button>
+        <img class="element__img" src="" alt="">
+        <div class="element__caption">
+          <h2 class="element__mesto"></h2>
+          <button class="element__like" type="button"></button>
+        </div>
       </div>
     </template>
     <script src="./scripts/profile __edit-button.js"></script>
