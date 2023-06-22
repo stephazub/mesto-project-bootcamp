@@ -46,6 +46,10 @@ const cities = [
   }
 ];
 
+/*Открытие попапа с картинкой*/
+const popupPhotoCaption = document.querySelector('.popup__caption');
+const popupPhoto = document.querySelector('.popup__img');
+
 /*### ФУНКЦИИ ###*/
 
 /*Открытие модального окна редактироания профиля*/
@@ -59,6 +63,7 @@ function openProfilePopup (popupElement) {
 function closePopup (popupElement) {
     popupElement[0].classList.remove('popup_status_opened');
     popupElement[1].classList.remove('popup_status_opened');
+    popupElement[2].classList.remove('popup_status_opened');
 }
 
 /*Редактирование имени и информации о себе*/
@@ -69,17 +74,40 @@ function handleProfileFormSubmit(evt) {
   closePopup(popupElement);
 }
 
-/*Шесть карточек «из коробки»*/
 /*Лайк карточки*/
-/*Удаление карточки*/
-cities.forEach((element) => {
-  const cityCard = card.content.cloneNode(true);
-  cityCard.querySelector('.element__mesto').textContent = element.name;
-  cityCard.querySelector('.element__img').src = element.link;
+function likeCard(cityCard) {
   cityCard.querySelector('.element__like').addEventListener('click', function (evt) {evt.target.classList.toggle('element__like_active')});
+}
+
+/*Удаление карточки*/
+function deleteCard(cityCard) {
   cityCard.querySelector('.element__delete').addEventListener('click', function(evt) {evt.target.parentElement.remove()});
-  cards.append(cityCard);
-});
+}
+
+/*Открытие попапа с картинкой*/
+function openImgPopap(cityCard, name, link) {
+  cityCard.querySelector('.element__img').addEventListener('click', function() {
+    popupElement[2].classList.add('popup_status_opened');
+    popupPhotoCaption.textContent = name;
+    popupPhoto.setAttribute('src', link);
+  })
+}
+
+/*Шесть карточек «из коробки»*/
+function showSixCards () {
+  cities.forEach((element) => {
+    const cityCard = card.content.cloneNode(true);
+    cityCard.querySelector('.element__mesto').textContent = element.name;
+    const name = cityCard.querySelector('.element__mesto').textContent;
+    cityCard.querySelector('.element__img').src = element.link;
+    const link = cityCard.querySelector('.element__img').src;
+    likeCard(cityCard);
+    deleteCard(cityCard);
+    openImgPopap(cityCard, name, link);
+    cards.append(cityCard);
+  });
+}
+
 
 /*Открытие модального окна добавления карточки*/
 function openCreatePopup (popupElement) {
@@ -87,20 +115,23 @@ function openCreatePopup (popupElement) {
 }
 
 /*Добавление карточки*/
-/*Лайк карточки*/
-/*Удаление карточки*/
 function handleCreateFormSubmit(evt) {
   evt.preventDefault();
   const cityCard = card.content.cloneNode(true);
   cityCard.querySelector('.element__mesto').textContent = createInputs[0].value;
+  const name = cityCard.querySelector('.element__mesto').textContent;
   cityCard.querySelector('.element__img').setAttribute('src', createInputs[1].value);
-  cityCard.querySelector('.element__like').addEventListener('click', function (evt) {evt.target.classList.toggle('element__like_active')});
-  cityCard.querySelector('.element__delete').addEventListener('click', function(evt) {evt.target.parentElement.remove()});
+  const link = cityCard.querySelector('.element__img').src;
+  likeCard(cityCard);
+  deleteCard(cityCard);
+  openImgPopap(cityCard, name, link)
   cards.prepend(cityCard);
   closePopup(popupElement);
 }
 
-/*### СЛУШАТЕЛИ ###*/
+/*### ВЫЗОВЫ ###*/
+/*Шесть карточек «из коробки»*/
+showSixCards();
 
 /*Открытие модального окна редактироания профиля*/
 profileEditButton.addEventListener('click', function() {
@@ -127,3 +158,8 @@ popupCloseButton[1].addEventListener('click', function() {
 
 /*Добавление карточки*/
 createForm.addEventListener('submit', handleCreateFormSubmit);
+
+/*Закрытие модального окна добавления карточки*/
+popupCloseButton[2].addEventListener('click', function() {
+  closePopup(popupElement);
+});
