@@ -32,31 +32,31 @@
     <footer class="footer">
       <p class="footer__copyrigth">© 2020 Mesto Russia</p>
     </footer>
-    <div class="popup">
+    <div class="popup popup_button_profile">
       <div class="popup__container">
-        <button class="popup__close-button"></button>
+        <button class="popup__close-button popup__close-button_place_profile""></button>
         <form class="form form_button_profile" name="info">
           <h3 class="form__title">Редактировать профиль</h3>
-          <input class="form__input form__input_button_profile" type="text" name="name" required>
-          <input class="form__input form__input_button_profile" type="text" name="subtitle" required>
+          <input class="form__input form__input_profile_name" type="text" name="name" required>
+          <input class="form__input form__input_profile_description" type="text" name="subtitle" required>
           <button class="form__submit" type="submit">Сохранить</button>
         </form>
       </div>  
     </div>
-    <div class="popup">
+    <div class="popup popup_button_add">
       <div class="popup__container">
-        <button class="popup__close-button"></button>
+        <button class="popup__close-button popup__close-button_place_add"></button>
         <form class="form form_button_create" name="info">
           <h3 class="form__title">Название</h3>
-          <input class="form__input form__input_button_create" type="text" placeholder="Новое место" name="name" required>
-          <input class="form__input form__input_button_create" type="text" placeholder="Ссылка на картинку" name="subtitle" required>
+          <input class="form__input form__input_create_name" type="text" placeholder="Новое место" name="name" required>
+          <input class="form__input form__input_create_link" type="text" placeholder="Ссылка на картинку" name="subtitle" required>
           <button class="form__submit" type="submit">Создать</button>
         </form>
       </div>  
     </div>
-    <div class="popup popup_place_photo">
+    <div class="popup popup_button_img">
       <figure class="popup__figure">
-        <button class="popup__close-button"></button>
+        <button class="popup__close-button popup__close-button_place_img"></button>
         <img class="popup__img" src="https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg" alt="">
         <figcaption class="popup__caption"></figcaption>
       </figure> 

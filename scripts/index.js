@@ -2,16 +2,23 @@
 
 /*Открытие закрытие модального окна редактироания профиля*/
 const profileEditButton = document.querySelector('.profile__edit-button');
-const popupElement = document.querySelectorAll('.popup');
-const popupCloseButton  = document.querySelectorAll('.popup__close-button');
+const popupProfile = document.querySelector('.popup_button_profile');
+const popupAdd = document.querySelector('.popup_button_add');
+const popupImg = document.querySelector('.popup_button_img');
+const closeButtonProfile = document.querySelector('.popup__close-button_place_profile');
+const closeButtonAdd = document.querySelector('.popup__close-button_place_add');
+const closeButtonImg = document.querySelector('.popup__close-button_place_img');
 
 /*Заполнение полей формы редактирования профиля информацией со страницы*/
 const profileName = document.querySelector('.profile__name');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 const profileForm = document.querySelector('.form_button_profile');
-const profileInputs = document.querySelectorAll('.form__input_button_profile');
+const profileInputName = document.querySelector('.form__input_profile_name');
+const profileInputDescription = document.querySelector('.form__input_profile_description');
 const createForm = document.querySelector('.form_button_create');
 const createInputs = document.querySelectorAll('.form__input_button_create');
+const createInputName = document.querySelector('.form__input_create_name');
+const createInputLink = document.querySelector('.form__input_create_link');
 
 /*Добавление карточки*/
 const createButton = document.querySelector('.profile__add-button')
@@ -53,80 +60,77 @@ const popupPhoto = document.querySelector('.popup__img');
 /*### ФУНКЦИИ ###*/
 
 /*Открытие модального окна редактироания профиля*/
-function openProfilePopup (popupElement) {
-  popupElement[0].classList.add('popup_status_opened');
-  profileInputs[0].value = profileName.textContent;
-  profileInputs[1].value = profileSubtitle.textContent;
+function openPopup(popup) {
+  popup.classList.add('popup_status_opened');
+}
+
+/*Редактирование профиля*/
+function editProfileForm() {
+  profileInputName.value = profileName.textContent;
+  profileInputDescription.value = profileSubtitle.textContent;
 }
 
 /*Закрытие модального окна*/
-function closePopup (popupElement) {
-    popupElement[0].classList.remove('popup_status_opened');
-    popupElement[1].classList.remove('popup_status_opened');
-    popupElement[2].classList.remove('popup_status_opened');
+function closePopup (popup) {
+  popup.classList.remove('popup_status_opened');
 }
 
 /*Редактирование имени и информации о себе*/
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  profileName.textContent = profileInputs[0].value;
-  profileSubtitle.textContent = profileInputs[1].value;
-  closePopup(popupElement);
+  profileName.textContent = profileInputName.value;
+  profileSubtitle.textContent = profileInputDescription.value;
+  closePopup(popupProfile);
 }
 
 /*Лайк карточки*/
-function likeCard(cityCard) {
+function addLikeListener(cityCard) {
   cityCard.querySelector('.element__like').addEventListener('click', function (evt) {evt.target.classList.toggle('element__like_active')});
 }
 
 /*Удаление карточки*/
-function deleteCard(cityCard) {
+function addDeleteListener(cityCard) {
   cityCard.querySelector('.element__delete').addEventListener('click', function(evt) {evt.target.parentElement.remove()});
 }
 
 /*Открытие попапа с картинкой*/
 function openImgPopap(cityCard, name, link) {
   cityCard.querySelector('.element__img').addEventListener('click', function() {
-    popupElement[2].classList.add('popup_status_opened');
+    openPopup(popupImg);
     popupPhotoCaption.textContent = name;
     popupPhoto.setAttribute('src', link);
   })
 }
 
-/*Шесть карточек «из коробки»*/
-function showSixCards () {
-  cities.forEach((element) => {
-    const cityCard = card.content.cloneNode(true);
-    cityCard.querySelector('.element__mesto').textContent = element.name;
-    const name = cityCard.querySelector('.element__mesto').textContent;
-    cityCard.querySelector('.element__img').src = element.link;
-    const link = cityCard.querySelector('.element__img').src;
-    likeCard(cityCard);
-    deleteCard(cityCard);
-    openImgPopap(cityCard, name, link);
-    cards.append(cityCard);
-  });
+/*Создание карточки*/
+function createCard(title, ref) {
+  const cityCard = card.content.cloneNode(true);
+  cityCard.querySelector('.element__mesto').textContent = title;
+  cityCard.querySelector('.element__img').setAttribute('src', ref)
+  cityCard.querySelector('.element__img').setAttribute('alt', title);
+  addLikeListener(cityCard);
+  addDeleteListener(cityCard);
+  return cityCard;
 }
 
 
-/*Открытие модального окна добавления карточки*/
-function openCreatePopup (popupElement) {
-  popupElement[1].classList.add('popup_status_opened');
+/*Шесть карточек «из коробки»*/
+function showSixCards () {
+  cities.forEach((element) => {
+    const cityCard = createCard(element.name, element.link);
+    openImgPopap(cityCard, element.name, element.link);
+    cards.append(cityCard);
+  });
 }
 
 /*Добавление карточки*/
 function handleCreateFormSubmit(evt) {
   evt.preventDefault();
-  const cityCard = card.content.cloneNode(true);
-  cityCard.querySelector('.element__mesto').textContent = createInputs[0].value;
-  const name = cityCard.querySelector('.element__mesto').textContent;
-  cityCard.querySelector('.element__img').setAttribute('src', createInputs[1].value);
-  const link = cityCard.querySelector('.element__img').src;
-  likeCard(cityCard);
-  deleteCard(cityCard);
-  openImgPopap(cityCard, name, link)
+  const cityCard = createCard(createInputName.value, createInputLink.value);
+  openImgPopap(cityCard, createInputName.value, createInputLink.value)
   cards.prepend(cityCard);
-  closePopup(popupElement);
+  closePopup(popupAdd);
+  createForm.reset();
 }
 
 /*### ВЫЗОВЫ ###*/
@@ -135,12 +139,13 @@ showSixCards();
 
 /*Открытие модального окна редактироания профиля*/
 profileEditButton.addEventListener('click', function() {
-  openProfilePopup(popupElement);
+  openPopup(popupProfile);
+  editProfileForm();
 });
 
 /*Закрытие модального окна редактироания профиля*/
-popupCloseButton[0].addEventListener('click', function() {
-  closePopup(popupElement);
+closeButtonProfile.addEventListener('click', function() {
+  closePopup(popupProfile);
 });
 
 /*Редактирование имени и информации о себе*/
@@ -148,18 +153,18 @@ profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 /*Открытие модального окна добавления карточки*/
 createButton.addEventListener('click', function(){
-  openCreatePopup(popupElement)
+  openPopup(popupAdd);
 });
 
 /*Закрытие модального окна добавления карточки*/
-popupCloseButton[1].addEventListener('click', function() {
-  closePopup(popupElement);
+closeButtonAdd.addEventListener('click', function() {
+  closePopup(popupAdd);
 });
 
 /*Добавление карточки*/
 createForm.addEventListener('submit', handleCreateFormSubmit);
 
 /*Закрытие модального окна добавления карточки*/
-popupCloseButton[2].addEventListener('click', function() {
-  closePopup(popupElement);
+closeButtonImg.addEventListener('click', function() {
+  closePopup(popupImg);
 });
