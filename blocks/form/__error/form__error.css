@@ -1,0 +1,10 @@
+.form__error {
+  visibility: hidden;
+  color: rgba(255, 0, 0, 1);
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 400;
+  margin: 5px 0 25px 0;
+  padding: 0px;
+}

@@ -1,6 +1,6 @@
 .form__submit {
     border: none;
-    color: rgba(256, 256, 256, 1);
+    color: rgba(255, 255, 255, 1);
     font-family: 'Inter', Arial, sans-serif;
     font-size: 18px;
     line-height: 22px;
@@ -9,6 +9,7 @@
     margin: 18px 0 0 0;
     background-color: rgba(0, 0, 0, 1);
     cursor: pointer;
+    box-sizing: border-box;
   }
 
   .form__submit:hover {

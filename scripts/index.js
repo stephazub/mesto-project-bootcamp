@@ -12,13 +12,12 @@ const closeButtonImg = document.querySelector('.popup__close-button_place_img');
 /*Заполнение полей формы редактирования профиля информацией со страницы*/
 const profileName = document.querySelector('.profile__name');
 const profileSubtitle = document.querySelector('.profile__subtitle');
-const profileForm = document.querySelector('.form_button_profile');
-const profileInputName = document.querySelector('.form__input_profile_name');
-const profileInputDescription = document.querySelector('.form__input_profile_description');
-const createForm = document.querySelector('.form_button_create');
-const createInputs = document.querySelectorAll('.form__input_button_create');
-const createInputName = document.querySelector('.form__input_create_name');
-const createInputLink = document.querySelector('.form__input_create_link');
+const profileForm = document.forms.info;
+const profileInputName = profileForm.elements.name;
+const profileInputDescription = info.elements.subtitle;
+const createForm = document.forms.create;
+const createInputName = createForm.elements.place;
+const createInputLink = createForm.elements.link;
 
 /*Добавление карточки*/
 const createButton = document.querySelector('.profile__add-button')
@@ -168,3 +167,74 @@ createForm.addEventListener('submit', handleCreateFormSubmit);
 closeButtonImg.addEventListener('click', function() {
   closePopup(popupImg);
 });
+
+
+/*ВАЛИДАЦИЯ ФОРМ*/
+/*const form = document.querySelector('.form');
+const formInput = form.querySelector('.form__input');
+const formError = document.querySelector(`.form__error_place_${createInputName.id}`);*/
+
+
+const showInputError = (formElement, inputElement, errorMessage) => {
+  const errorElement = formElement.querySelector(`.form__error_place_${inputElement.id}`);
+  inputElement.classList.add('form__input_type_error');
+  errorElement.textContent = errorMessage;
+  errorElement.classList.add('form__error_status_active');
+};
+
+const hideInputError = (formElement, inputElement) => {
+  const errorElement = formElement.querySelector(`.form__error_place_${inputElement.id}`);
+  inputElement.classList.remove('form__input_type_error');
+  errorElement.classList.remove('form__error_status_active');
+  errorElement.textContent = '';
+};
+
+const checkInputValidity = (formElement, inputElement) => {
+  if (!inputElement.validity.valid) {
+    showInputError(formElement, inputElement, inputElement.validationMessage);
+  } else {
+    hideInputError(formElement, inputElement);
+  }
+};
+
+const hasInvalidInput = (inputList) => {
+  return inputList.some((inputElement) => {
+    return !inputElement.validity.valid;
+  });
+};
+
+const toggleButtonState = (inputList, buttonElement) => {
+  if (hasInvalidInput(inputList)) {
+  buttonElement.classList.add('form__submit_status_inactive');
+  buttonElement.disabled = true;
+} else {
+  buttonElement.classList.remove('form__submit_status_inactive');
+  buttonElement.disabled = false;
+}
+}
+
+const setEventListeners = (formElement) => {
+  const inputList = Array.from(formElement.querySelectorAll('.form__input'));
+  const buttonElement = formElement.querySelector('.form__submit');
+  toggleButtonState(inputList, buttonElement);
+  inputList.forEach((inputElement) => {
+    inputElement.addEventListener('input', function () {
+      checkInputValidity(formElement, inputElement);
+      toggleButtonState(inputList, buttonElement);
+    });
+  });
+};
+
+const enableValidation = () => {
+  const formList = Array.from(document.querySelectorAll('.form'));
+  formList.forEach((formElement) => {
+    formElement.addEventListener('submit', function (evt) {
+      evt.preventDefault();
+    });
+
+    setEventListeners(formElement);
+  });
+};
+
+enableValidation();
+
