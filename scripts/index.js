@@ -56,12 +56,7 @@ const cities = [
 const popupPhotoCaption = document.querySelector('.popup__caption');
 const popupPhoto = document.querySelector('.popup__img');
 
-/*### ФУНКЦИИ ###*/
-
-/*Открытие модального окна редактироания профиля*/
-function openPopup(popup) {
-  popup.classList.add('popup_status_opened');
-}
+/*### ПРОЧЕЕ ###*/
 
 /*Редактирование профиля*/
 function editProfileForm() {
@@ -82,6 +77,16 @@ function handleProfileFormSubmit(evt) {
   closePopup(popupProfile);
 }
 
+/*Редактирование имени и информации о себе*/
+profileForm.addEventListener('submit', handleProfileFormSubmit);
+
+/*Добавление карточки*/
+createForm.addEventListener('submit', handleCreateFormSubmit);
+
+
+
+/*### КАРТОЧКИ ###*/
+
 /*Лайк карточки*/
 function addLikeListener(cityCard) {
   cityCard.querySelector('.element__like').addEventListener('click', function (evt) {evt.target.classList.toggle('element__like_active')});
@@ -90,15 +95,6 @@ function addLikeListener(cityCard) {
 /*Удаление карточки*/
 function addDeleteListener(cityCard) {
   cityCard.querySelector('.element__delete').addEventListener('click', function(evt) {evt.target.parentElement.remove()});
-}
-
-/*Открытие попапа с картинкой*/
-function openImgPopap(cityCard, name, link) {
-  cityCard.querySelector('.element__img').addEventListener('click', function() {
-    openPopup(popupImg);
-    popupPhotoCaption.textContent = name;
-    popupPhoto.setAttribute('src', link);
-  })
 }
 
 /*Создание карточки*/
@@ -112,6 +108,14 @@ function createCard(title, ref) {
   return cityCard;
 }
 
+/*Открытие модального окна с картинкой*/
+function openImgPopap(cityCard, name, link) {
+  cityCard.querySelector('.element__img').addEventListener('click', function() {
+    openPopup(popupImg);
+    popupPhotoCaption.textContent = name;
+    popupPhoto.setAttribute('src', link);
+  })
+}
 
 /*Шесть карточек «из коробки»*/
 function showSixCards () {
@@ -132,9 +136,22 @@ function handleCreateFormSubmit(evt) {
   createForm.reset();
 }
 
-/*### ВЫЗОВЫ ###*/
 /*Шесть карточек «из коробки»*/
 showSixCards();
+
+
+
+/*### МОДАЛЬНЫЕ ОКНА ###*/
+
+/*Открытие модального окна редактироания профиля*/
+function openPopup(popup) {
+  popup.classList.add('popup_status_opened');
+}
+
+/*Открытие модального окна добавления карточки*/
+createButton.addEventListener('click', function(){
+  openPopup(popupAdd);
+});
 
 /*Открытие модального окна редактироания профиля*/
 profileEditButton.addEventListener('click', function() {
@@ -142,54 +159,47 @@ profileEditButton.addEventListener('click', function() {
   editProfileForm();
 });
 
-/*Закрытие модального окна редактироания профиля*/
-closeButtonProfile.addEventListener('click', function() {
-  closePopup(popupProfile);
-});
 
-/*Редактирование имени и информации о себе*/
-profileForm.addEventListener('submit', handleProfileFormSubmit);
+function closeModalWindow () {
+  const popupList = Array.from(document.querySelectorAll('.popup'));
+  popupList.forEach((popupElement) => {
+    const modalWindow = popupElement.querySelector('.popup__container');
+    const closeButton = popupElement.querySelector('.popup__close-button');
+    popupElement.addEventListener( 'click', function (evt) {
+      const withinBoundaries = evt.composedPath().includes(modalWindow);
+      const closePlace = evt.composedPath().includes(closeButton);
+      if (!withinBoundaries || closePlace) {
+        closePopup(popupElement);
+      }
+    });
+    document.addEventListener('keydown', function (evt) {
+      if(evt.key == 'Escape') { 
+        closePopup(popupElement);
+      }
+    });
+  });
+}
 
-/*Открытие модального окна добавления карточки*/
-createButton.addEventListener('click', function(){
-  openPopup(popupAdd);
-});
-
-/*Закрытие модального окна добавления карточки*/
-closeButtonAdd.addEventListener('click', function() {
-  closePopup(popupAdd);
-});
-
-/*Добавление карточки*/
-createForm.addEventListener('submit', handleCreateFormSubmit);
-
-/*Закрытие модального окна добавления карточки*/
-closeButtonImg.addEventListener('click', function() {
-  closePopup(popupImg);
-});
+closeModalWindow();
 
 
 /*ВАЛИДАЦИЯ ФОРМ*/
-/*const form = document.querySelector('.form');
-const formInput = form.querySelector('.form__input');
-const formError = document.querySelector(`.form__error_place_${createInputName.id}`);*/
 
-
-const showInputError = (formElement, inputElement, errorMessage) => {
+function showInputError (formElement, inputElement, errorMessage) {
   const errorElement = formElement.querySelector(`.form__error_place_${inputElement.id}`);
   inputElement.classList.add('form__input_type_error');
   errorElement.textContent = errorMessage;
   errorElement.classList.add('form__error_status_active');
 };
 
-const hideInputError = (formElement, inputElement) => {
+function hideInputError (formElement, inputElement) {
   const errorElement = formElement.querySelector(`.form__error_place_${inputElement.id}`);
   inputElement.classList.remove('form__input_type_error');
   errorElement.classList.remove('form__error_status_active');
   errorElement.textContent = '';
 };
 
-const checkInputValidity = (formElement, inputElement) => {
+function checkInputValidity (formElement, inputElement) {
   if (!inputElement.validity.valid) {
     showInputError(formElement, inputElement, inputElement.validationMessage);
   } else {
@@ -197,23 +207,23 @@ const checkInputValidity = (formElement, inputElement) => {
   }
 };
 
-const hasInvalidInput = (inputList) => {
+function hasInvalidInput (inputList) {
   return inputList.some((inputElement) => {
     return !inputElement.validity.valid;
   });
 };
 
-const toggleButtonState = (inputList, buttonElement) => {
+function toggleButtonState (inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
-  buttonElement.classList.add('form__submit_status_inactive');
-  buttonElement.disabled = true;
-} else {
-  buttonElement.classList.remove('form__submit_status_inactive');
-  buttonElement.disabled = false;
-}
+    buttonElement.classList.add('form__submit_status_inactive');
+    buttonElement.disabled = true;
+  } else {
+    buttonElement.classList.remove('form__submit_status_inactive');
+    buttonElement.disabled = false;
+  }
 }
 
-const setEventListeners = (formElement) => {
+function setEventListeners (formElement) {
   const inputList = Array.from(formElement.querySelectorAll('.form__input'));
   const buttonElement = formElement.querySelector('.form__submit');
   toggleButtonState(inputList, buttonElement);
@@ -225,7 +235,7 @@ const setEventListeners = (formElement) => {
   });
 };
 
-const enableValidation = () => {
+function enableValidation () {
   const formList = Array.from(document.querySelectorAll('.form'));
   formList.forEach((formElement) => {
     formElement.addEventListener('submit', function (evt) {
