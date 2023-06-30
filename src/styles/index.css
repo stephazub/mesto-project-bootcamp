@@ -49,5 +49,3 @@
 @import url(../blocks/form/__input/_type_error/form__input_type_error.css);
 @import url(../blocks/form/__error/form__error.css);
 @import url(../blocks/form/__error/_status_active/form__error_status_active.css);
-
-/* { outline: 1px solid yellow; }
