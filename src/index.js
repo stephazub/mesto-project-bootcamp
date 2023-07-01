@@ -1,4 +1,11 @@
 import './styles/index.css';
+/*
+import { array } from './components/card';
+import { array } from './components/modal';
+import { array } from './components/utils';
+import { array } from './components/validate';
+*/
+
 /*### ПЕРЕМЕННЫЕ ###*/
 
 /*Открытие закрытие модального окна редактироания профиля*/
@@ -6,9 +13,6 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 const popupProfile = document.querySelector('.popup_button_profile');
 const popupAdd = document.querySelector('.popup_button_add');
 const popupImg = document.querySelector('.popup_button_img');
-const closeButtonProfile = document.querySelector('.popup__close-button_place_profile');
-const closeButtonAdd = document.querySelector('.popup__close-button_place_add');
-const closeButtonImg = document.querySelector('.popup__close-button_place_img');
 
 /*Заполнение полей формы редактирования профиля информацией со страницы*/
 const profileName = document.querySelector('.profile__name');
@@ -164,7 +168,7 @@ profileEditButton.addEventListener('click', function() {
 function closeModalWindow () {
   const popupList = Array.from(document.querySelectorAll('.popup'));
   popupList.forEach((popupElement) => {
-    const modalWindow = popupElement.querySelector('.popup__container');
+    const modalWindow = popupElement.querySelector('.overlay');
     const closeButton = popupElement.querySelector('.popup__close-button');
     popupElement.addEventListener( 'click', function (evt) {
       const withinBoundaries = evt.composedPath().includes(modalWindow);
