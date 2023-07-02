@@ -43,11 +43,13 @@ function setListenerCloseModal () {
           closePopup(popupElement);
         }
       });
-      document.addEventListener('keydown', function (evt) {
+      function setListenerEscape(evt) {
         if(evt.key == 'Escape') { 
           closePopup(popupElement);
+          document.removeEventListener('keydown', setListenerEscape);
         }
-      });
+      }
+      document.addEventListener('keydown', setListenerEscape);
     });
   }
 

@@ -1,18 +1,18 @@
-import './styles/index.css';
+import '../styles/index.css';
 
 //Шесть стартовых карточек с местами
 //Создание новых мест
-import {showSixCards, setListenerCreateForm, createForm} from './components/card';
+import {showSixCards, setListenerCreateForm, createForm} from './card';
 
 //Закрытие модальных окон
 //Открытие модальных окон
-import {setListenerCloseModal, setListenerOpenModal, profileEditButton, popupProfile, popupAdd, createButton} from './components/modal';
+import {setListenerCloseModal, setListenerOpenModal, profileEditButton, popupProfile, popupAdd, createButton} from './modal';
 
 //Редактирование информации пользователя
-import {setListenerProfileForm, profileForm} from './components/utils';
+import {setListenerProfileForm, profileForm} from './utils';
 
 //Валидация форм
-import {enableValidation} from './components/validate';
+import {enableValidation} from './validate';
 
 
 //Шесть стартовых карточек с местами
