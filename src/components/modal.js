@@ -14,21 +14,38 @@ function editProfileForm() {
   }
 
 function closePopup (popup) {
+    removeListenerEscape();
     popup.classList.remove('popup_status_opened');
   }
 
 function openPopup(popup) {
     popup.classList.add('popup_status_opened');
+    setListenerEscape()
   }
 
 function setListenerOpenModal(button, popup) {
   button.addEventListener('click', function(){
     openPopup(popup);
-  });
-  button.addEventListener('click', function() {
-    openPopup(popup);
+    const submitButon = document.querySelector('.form__submit');
+    submitButon.classList.add('form__submit_status_inactive');
+    submitButon.disabled = true;
     editProfileForm();
   });
+}
+
+function closeByEscape(evt) {
+  if(evt.key == 'Escape') {
+    const openedPopup = document.querySelector('.popup_status_opened');
+    closePopup(openedPopup);
+  }
+}
+
+function setListenerEscape() {
+  document.addEventListener('keydown', closeByEscape);
+}
+
+function removeListenerEscape() {
+  document.removeEventListener('keydown', closeByEscape);
 }
 
 function setListenerCloseModal () {
@@ -43,13 +60,6 @@ function setListenerCloseModal () {
           closePopup(popupElement);
         }
       });
-      function setListenerEscape(evt) {
-        if(evt.key == 'Escape') { 
-          closePopup(popupElement);
-          document.removeEventListener('keydown', setListenerEscape);
-        }
-      }
-      document.addEventListener('keydown', setListenerEscape);
     });
   }
 
