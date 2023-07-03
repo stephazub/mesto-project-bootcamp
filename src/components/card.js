@@ -67,7 +67,6 @@ function openImgPopap(cityCard, name, link) {
 function showSixCards () {
     cities.forEach((element) => {
       const cityCard = createCard(element.name, element.link);
-      //openImgPopap(cityCard, element.name, element.link);
       cards.append(cityCard);
     });
   }
@@ -75,7 +74,6 @@ function showSixCards () {
 function handleCreateFormSubmit(evt) {
     evt.preventDefault();
     const cityCard = createCard(createInputName.value, createInputLink.value);
-    //openImgPopap(cityCard, createInputName.value, createInputLink.value)
     cards.prepend(cityCard);
     closePopup(popupAdd);
     createForm.reset();
