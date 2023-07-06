@@ -42,9 +42,9 @@ export {getUserInfo};
 
 //Загрузка карточек с сервера
 function getInitialCards () {
-    return fetch (`https://nomoreparties.co/v1/wbf-cohort-10/cards`, {
+    return fetch (`${config.baseUrl}/cards`, {
       headers: {
-        authorization: 'f0c8e955-f497-444c-995d-f8a73ebe49d1'
+        authorization: config.headers.authorization
       }
     })
     .then(res => {
