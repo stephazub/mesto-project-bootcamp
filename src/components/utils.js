@@ -7,6 +7,7 @@ const profileName = document.querySelector('.profile__name');
 const profileSubtitle = document.querySelector('.profile__subtitle');
 const popupProfile = document.querySelector('.popup_button_profile');
 
+
 function handleProfileFormSubmit(evt) {
     evt.preventDefault();
     profileName.textContent = profileInputName.value;
@@ -20,3 +21,4 @@ function handleProfileFormSubmit(evt) {
   }
 
   export {setListenerProfileForm, profileForm};
+  

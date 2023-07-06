@@ -14,6 +14,12 @@ import {setListenerProfileForm, profileForm} from './utils';
 //Валидация форм
 import {enableValidation} from './validate';
 
+//Загрузка информации о пользователе с сервера
+import {getUserInfo} from './api';
+
+
+//Загрузка информации о пользователе с сервера
+getUserInfo();
 
 //Шесть стартовых карточек с местами
 showSixCards();

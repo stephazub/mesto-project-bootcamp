@@ -1,4 +1,5 @@
 import {openPopup, closePopup} from './modal';
+import {cities} from './api';
 
 const createForm = document.forms.create;
 const popupAdd = document.querySelector('.popup_button_add');
@@ -7,32 +8,6 @@ const createInputName = createForm.elements.place;
 const createInputLink = createForm.elements.link;
 const card = document.querySelector('.card');
 const cards = document.querySelector('.elements');
-const cities = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 const popupPhotoCaption = document.querySelector('.popup__caption');
 const popupPhoto = document.querySelector('.popup__img');
