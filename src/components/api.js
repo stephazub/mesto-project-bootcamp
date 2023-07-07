@@ -6,9 +6,57 @@ const config = {
     },
     profileNameSelector: '.profile__name',
     profileAboutSelector: '.profile__subtitle',
-    profileAvatarSelector: '.profile__avatar'
+    profileAvatarSelector: '.profile__avatar',
   }
 
+//Удаление карточки
+function deleteCard(cardId) {
+  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+    method: 'DELETE',
+    headers: {
+      authorization: config.headers.authorization,
+      'Content-Type': 'application/json'
+    }
+})
+}
+
+export {deleteCard};
+
+
+//Добавление новой карточки
+function createNewCard(nameCard, linkCard) {
+  return fetch(`${config.baseUrl}/cards`, {
+    method: 'POST',
+    headers: {
+      authorization: config.headers.authorization,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: nameCard,
+      link: linkCard
+    })
+  })
+}
+
+export {createNewCard};
+
+
+//Редактирование профиля
+function sendUserInfo() {
+  return fetch(`${config.baseUrl}/users/me`, {
+    method: 'PATCH',
+    headers: {
+      authorization: config.headers.authorization,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: profileName.textContent,
+      about: profileAbout.textContent
+    })
+  })
+}
+
+export {sendUserInfo};
 
 //Загрузка информации о пользователе с сервера
 const profileName = document.querySelector(config.profileNameSelector);
@@ -28,6 +76,7 @@ function getUserInfo () {
     return Promise.reject(`Ошибка: ${res.status}`);
    })
   .then((data) => {
+    console.log(data);
     profileName.textContent = data.name;
     profileAbout.textContent = data.about;
     profileAvatar.setAttribute('src', data.avatar);
@@ -54,6 +103,7 @@ function getInitialCards () {
       return Promise.reject(`Ошибка: ${res.status}`);
      })
     .then((data) => {
+      console.log(data);
       return data;
     })
     .catch((err) => {
