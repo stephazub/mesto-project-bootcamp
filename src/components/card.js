@@ -22,8 +22,10 @@ function addLikeListener(cityCard) {
 
 function addDeleteListener(cityCard, id) {
     cityCard.querySelector('.element__delete').addEventListener('click', function(evt) {
-      evt.target.parentElement.remove();
-      deleteCard(id)
+      //evt.target.parentElement.remove();
+      deleteCard(id).then(() => {
+        evt.target.parentElement.remove();
+      });
     });
   }
 
@@ -56,17 +58,18 @@ function showSixCards () {
     });
   }
 
-function handleCreateFormSubmit(evt) {
-    evt.preventDefault();
-    const cityCard = createCard(createInputName.value, createInputLink.value);
+function handleCreateFormSubmit(evt, data) {
+  evt.preventDefault();
+    const cityCard = createCard(data.name, data.link, data.likes.length, data.owner._id, data._id);
     cards.prepend(cityCard);
     closePopup(popupAdd);
   }
 
 function setListenerCreateForm (form) {
   form.addEventListener('submit', function (evt) {
-     handleCreateFormSubmit(evt);
-     createNewCard(createInputName.value, createInputLink.value);
+     createNewCard(createInputName.value, createInputLink.value).then((data) => {
+      handleCreateFormSubmit(evt, data);
+    });
      createForm.reset();
   });
 }

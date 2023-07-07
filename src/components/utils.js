@@ -20,8 +20,9 @@ function handleProfileFormSubmit(evt) {
 function setListenerProfileForm(form) {
   form.addEventListener('submit', function (evt) {
     handleProfileFormSubmit(evt);
-    sendUserInfo()
-  });
+    sendUserInfo();
+  }
+  )
 }
 
 export { setListenerProfileForm, profileForm };
