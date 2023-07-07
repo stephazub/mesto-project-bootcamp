@@ -10,8 +10,8 @@ const config = {
   }
 
 //Удаление карточки
-function deleteCard(cardId) {
-  return fetch(`${config.baseUrl}/cards/${cardId}`, {
+function deleteCard(id) {
+  return fetch(`${config.baseUrl}/cards/${id}`, {
     method: 'DELETE',
     headers: {
       authorization: config.headers.authorization,

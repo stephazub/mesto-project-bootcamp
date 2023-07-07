@@ -20,15 +20,14 @@ function addLikeListener(cityCard) {
     cityCard.querySelector('.element__like').addEventListener('click', function (evt) {evt.target.classList.toggle('element__like_active')});
   }
 
-function addDeleteListener(cityCard) {
+function addDeleteListener(cityCard, id) {
     cityCard.querySelector('.element__delete').addEventListener('click', function(evt) {
       evt.target.parentElement.remove();
-      console.log(evt.target.parentElement);
-      console.log(cityCard);
+      deleteCard(id)
     });
   }
 
-function createCard(title, ref, likes, owner) {
+function createCard(title, ref, likes, owner, id) {
     const cityCard = card.content.cloneNode(true);
     cityCard.querySelector('.element__mesto').textContent = title;
     cityCard.querySelector('.element__img').setAttribute('src', ref)
@@ -37,7 +36,7 @@ function createCard(title, ref, likes, owner) {
     const cardTrash = cityCard.querySelector('.element__delete');
     hideTrash(cardTrash, owner);
     addLikeListener(cityCard);
-    addDeleteListener(cityCard);
+    addDeleteListener(cityCard,id);
     openImgPopap(cityCard, title, ref);
     return cityCard;
   }
@@ -52,7 +51,7 @@ function openImgPopap(cityCard, name, link) {
 
 function showSixCards () {
     cities.forEach((element) => {
-      const cityCard = createCard(element.name, element.link, element.likes.length, element.owner._id);
+      const cityCard = createCard(element.name, element.link, element.likes.length, element.owner._id, element._id);
       cards.append(cityCard);
     });
   }
