@@ -6,10 +6,10 @@ import {showSixCards, setListenerCreateForm, createForm} from './card';
 
 //Закрытие модальных окон
 //Открытие модальных окон
-import {setListenerCloseModal, setListenerOpenModal, profileEditButton, popupProfile, popupAdd, createButton} from './modal';
+import {setListenerCloseModal, setListenerOpenModal, profileEditButton, popupProfile, popupAdd, createButton, editAvatarButton, popupAvatar} from './modal';
 
 //Редактирование информации пользователя
-import {setListenerProfileForm, profileForm} from './utils';
+import {setListenerProfileForm, profileForm, setListenerAvatarForm, avatarForm} from './utils';
 
 //Валидация форм
 import {enableValidation} from './validate';
@@ -30,6 +30,7 @@ setListenerCloseModal();
 //Открытие модальных окон
 setListenerOpenModal(createButton, popupAdd);
 setListenerOpenModal(profileEditButton, popupProfile);
+setListenerOpenModal(editAvatarButton, popupAvatar);
 
 //Редактирование информации пользователя
 setListenerProfileForm(profileForm);
@@ -46,3 +47,6 @@ enableValidation({
   formSubmitSelector: '.form__submit',
   formSelector: '.form',
 });
+
+//Обновление аватара пользователя
+setListenerAvatarForm(avatarForm);

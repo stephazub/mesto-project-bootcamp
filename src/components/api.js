@@ -9,6 +9,35 @@ const config = {
   profileAvatarSelector: '.profile__avatar',
 }
 
+
+//Обновление аватара пользователя
+
+
+function editAvatar(avatarImage) {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
+    method: 'PATCH',
+    headers: {
+      authorization: config.headers.authorization,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      avatar: avatarImage.src
+    })
+  })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+}
+
+export { editAvatar }
+
+
 //Постановка и снятие лайка
 function putLike(id) {
   return fetch(`${config.baseUrl}/cards/likes/${id}`, {
@@ -61,7 +90,17 @@ function deleteCard(id) {
       'Content-Type': 'application/json'
     }
   })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
+
 
 export { deleteCard };
 
@@ -85,6 +124,9 @@ function createNewCard(nameCard, linkCard) {
       }
       return Promise.reject(`Ошибка: ${res.status}`);
     })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 export { createNewCard };
@@ -103,7 +145,17 @@ function sendUserInfo() {
       about: profileAbout.textContent
     })
   })
+    .then(res => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
+
 
 export { sendUserInfo };
 
@@ -125,6 +177,7 @@ function getUserInfo() {
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((data) => {
+      console.log(data);
       profileName.textContent = data.name;
       profileAbout.textContent = data.about;
       profileAvatar.setAttribute('src', data.avatar);
@@ -151,7 +204,7 @@ function getInitialCards() {
       return Promise.reject(`Ошибка: ${res.status}`);
     })
     .then((data) => {
-      console.log (data)
+      console.log(data)
       return data;
     })
     .catch((err) => {

@@ -7,6 +7,8 @@ const profileEditButton = document.querySelector('.profile__edit-button');
 const popupProfile = document.querySelector('.popup_button_profile');
 const popupAdd = document.querySelector('.popup_button_add');
 const createButton = document.querySelector('.profile__add-button');
+const editAvatarButton = document.querySelector('.profile__avatar-button');
+const popupAvatar = document.querySelector('.popup_button_avatar');
 
 function editProfileForm() {
     profileInputName.value = profileName.textContent;
@@ -70,5 +72,7 @@ export{ closePopup,
         profileEditButton,
         popupProfile,
         popupAdd,
-        createButton
+        createButton,
+        editAvatarButton,
+        popupAvatar
     };
