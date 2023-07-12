@@ -9,7 +9,9 @@ const config = {
   profileAvatarSelector: '.profile__avatar',
 }
 
-
+import {renderLoading} from './utils';
+const createForm = document.forms.create;
+const submitAdd = createForm.elements.submit;
 //Обновление аватара пользователя
 
 
@@ -126,7 +128,7 @@ function createNewCard(nameCard, linkCard) {
     })
     .catch((err) => {
       console.log(err);
-    });
+    })
 }
 
 export { createNewCard };

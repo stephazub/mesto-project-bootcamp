@@ -1,6 +1,7 @@
 import { openPopup, closePopup } from './modal';
 import { cities, createNewCard, deleteCard, putLike, deleteLike } from './api';
 import { data } from 'autoprefixer';
+import { renderLoading } from './utils'
 
 const createForm = document.forms.create;
 const popupAdd = document.querySelector('.popup_button_add');
@@ -9,6 +10,7 @@ const createInputName = createForm.elements.place;
 const createInputLink = createForm.elements.link;
 const card = document.querySelector('.card');
 const cards = document.querySelector('.elements');
+const submitAdd = createForm.elements.submit;
 
 const popupPhotoCaption = document.querySelector('.popup__caption');
 const popupPhoto = document.querySelector('.popup__img');
@@ -79,8 +81,11 @@ function showSixCards() {
 
 function handleCreateFormSubmit(evt, data) {
   evt.preventDefault();
+  debugger
+  renderLoading (true, submitAdd);
   const cityCard = createCard(data.name, data.link, data.likes.length, data.owner._id, data._id, data.likes);
   cards.prepend(cityCard);
+  renderLoading(false, submitAdd)
   closePopup(popupAdd);
 }
 
@@ -100,3 +105,5 @@ function hideTrash(cardTrash, owner) {
     cardTrash.style.display = 'none';
   }
 }
+
+//renderLoading (true, submitAdd)

@@ -65,3 +65,5 @@ function renderLoading(isLoading, submit) {
     submit.textContent = 'Сохранить';
   }
 } 
+
+export { renderLoading }
