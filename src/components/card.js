@@ -11,7 +11,6 @@ const createInputLink = createForm.elements.link;
 const card = document.querySelector('.card');
 const cards = document.querySelector('.elements');
 const submitAdd = createForm.elements.submit;
-
 const popupPhotoCaption = document.querySelector('.popup__caption');
 const popupPhoto = document.querySelector('.popup__img');
 const myID = '26cb9d3e86c0b7951030edec';
@@ -81,19 +80,21 @@ function showSixCards() {
 
 function handleCreateFormSubmit(evt, data) {
   evt.preventDefault();
-  debugger
-  renderLoading (true, submitAdd);
   const cityCard = createCard(data.name, data.link, data.likes.length, data.owner._id, data._id, data.likes);
   cards.prepend(cityCard);
-  renderLoading(false, submitAdd)
-  closePopup(popupAdd);
+  
 }
 
 function setListenerCreateForm(form) {
   form.addEventListener('submit', function (evt) {
+    renderLoading (true, submitAdd);
     createNewCard(createInputName.value, createInputLink.value).then((data) => {
       handleCreateFormSubmit(evt, data);
-    });
+    })
+    .finally(() => {
+      renderLoading (false, submitAdd);
+      closePopup(popupAdd);
+    })
     createForm.reset();
   });
 }
@@ -106,4 +107,3 @@ function hideTrash(cardTrash, owner) {
   }
 }
 
-//renderLoading (true, submitAdd)

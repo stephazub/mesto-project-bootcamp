@@ -1,5 +1,5 @@
 import { closePopup } from './modal';
-import { sendUserInfo, editAvatar} from './api';
+import { sendUserInfo, editAvatar } from './api';
 
 const profileForm = document.forms.info;
 const profileInputName = profileForm.elements.name;
@@ -19,17 +19,21 @@ const submitAvatar = avatarForm.elements.submit;
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  renderLoading(true, submitProfile);
   profileName.textContent = profileInputName.value;
   profileSubtitle.textContent = profileInputDescription.value;
-  closePopup(popupProfile);
+  
 }
 
 
 function setListenerProfileForm(form) {
   form.addEventListener('submit', function (evt) {
     handleProfileFormSubmit(evt);
-    sendUserInfo().finally(() => {renderLoading(false, submitProfile)});
+    renderLoading(true, submitProfile);
+    sendUserInfo()
+    .finally(() => { 
+      renderLoading(false, submitProfile);
+      closePopup(popupProfile);
+    });
   }
   )
 }
@@ -40,7 +44,6 @@ export { setListenerProfileForm, profileForm };
 //Обновление аватара пользователя
 function handleAvatarFormSubmit(evt) {
   evt.preventDefault();
-  renderLoading(true, submitAvatar);
   avatarImage.setAttribute('src', avatarInputLink.value);
   closePopup(popupAvatar);
 }
@@ -49,7 +52,12 @@ function setListenerAvatarForm(form) {
   form.addEventListener('submit', function (evt) {
     handleAvatarFormSubmit(evt);
     console.log(avatarImage.src);
-    editAvatar(avatarImage).finally(() => {renderLoading(false, submitAvatar)});
+    renderLoading(true, submitAvatar);
+    editAvatar(avatarImage)
+      .finally(() => {
+        renderLoading(false, submitAvatar);
+        closePopup(popupAvatar);
+      });
     avatarForm.reset();
   }
   )
@@ -64,6 +72,6 @@ function renderLoading(isLoading, submit) {
   } else {
     submit.textContent = 'Сохранить';
   }
-} 
+}
 
 export { renderLoading }

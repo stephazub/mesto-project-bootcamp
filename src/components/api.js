@@ -9,11 +9,8 @@ const config = {
   profileAvatarSelector: '.profile__avatar',
 }
 
-import {renderLoading} from './utils';
-const createForm = document.forms.create;
-const submitAdd = createForm.elements.submit;
-//Обновление аватара пользователя
 
+//Обновление аватара пользователя
 
 function editAvatar(avatarImage) {
   return fetch(`${config.baseUrl}/users/me/avatar`, {
