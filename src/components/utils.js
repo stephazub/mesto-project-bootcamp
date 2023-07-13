@@ -57,7 +57,6 @@ function setListenerAvatarForm(form) {
     renderLoading(true, submitAvatar);
     editAvatar(avatarInputLink.value)
       .then((data) => {
-        console.log(data.avatar);
         handleAvatarFormSubmit(evt, data)
       })
       .then(closePopup(popupAvatar))
