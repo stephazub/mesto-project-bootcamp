@@ -1,11 +1,13 @@
 import { closePopup } from './modal';
 import { sendUserInfo, editAvatar } from './api';
+import { data } from 'browserslist';
 
 const profileForm = document.forms.info;
 const profileInputName = profileForm.elements.name;
 const profileInputDescription = info.elements.subtitle;
 const profileName = document.querySelector('.profile__name');
 const profileSubtitle = document.querySelector('.profile__subtitle');
+const profileAvatar = document.querySelector('.profile__avatar');
 const popupProfile = document.querySelector('.popup_button_profile');
 
 const avatarForm = document.forms.avatar;
@@ -17,22 +19,26 @@ const submitProfile = profileForm.elements.submit;
 const submitAvatar = avatarForm.elements.submit;
 
 
-function handleProfileFormSubmit(evt) {
+function handleProfileFormSubmit(evt, data) {
   evt.preventDefault();
-  profileName.textContent = profileInputName.value;
-  profileSubtitle.textContent = profileInputDescription.value;
+  profileName.textContent = data.name;
+  profileSubtitle.textContent = data.about;
   
 }
 
 
 function setListenerProfileForm(form) {
   form.addEventListener('submit', function (evt) {
-    handleProfileFormSubmit(evt);
     renderLoading(true, submitProfile);
-    sendUserInfo()
+    sendUserInfo(profileInputName.value, profileInputDescription.value)
+    .then((data) => {
+      console.log(data);
+      handleProfileFormSubmit(evt, data);
+    })
+    .then(closePopup(popupProfile))
+    .catch(catchErr)
     .finally(() => { 
       renderLoading(false, submitProfile);
-      closePopup(popupProfile);
     });
   }
   )
@@ -42,21 +48,23 @@ export { setListenerProfileForm, profileForm };
 
 
 //Обновление аватара пользователя
-function handleAvatarFormSubmit(evt) {
+function handleAvatarFormSubmit(evt, data) {
   evt.preventDefault();
-  avatarImage.setAttribute('src', avatarInputLink.value);
-  closePopup(popupAvatar);
+  profileAvatar.setAttribute('src', data.avatar);
 }
 
 function setListenerAvatarForm(form) {
   form.addEventListener('submit', function (evt) {
-    handleAvatarFormSubmit(evt);
-    console.log(avatarImage.src);
     renderLoading(true, submitAvatar);
-    editAvatar(avatarImage)
+    editAvatar(avatarInputLink.value)
+      .then((data) => {
+        console.log(data.avatar);
+        handleAvatarFormSubmit(evt, data)
+      })
+      .then(closePopup(popupAvatar))
+      .catch(catchErr)
       .finally(() => {
         renderLoading(false, submitAvatar);
-        closePopup(popupAvatar);
       });
     avatarForm.reset();
   }
@@ -75,3 +83,22 @@ function renderLoading(isLoading, submit) {
 }
 
 export { renderLoading }
+
+
+//Проверка ответа
+function checkResponse(res) {
+  if (res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
+
+export {checkResponse};
+
+
+//Ловим ошибку
+function catchErr(err) {
+  console.log(err)
+}
+
+export {catchErr}

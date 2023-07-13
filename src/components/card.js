@@ -1,7 +1,8 @@
 import { openPopup, closePopup } from './modal';
 import { cities, createNewCard, deleteCard, putLike, deleteLike } from './api';
 import { data } from 'autoprefixer';
-import { renderLoading } from './utils'
+import { renderLoading, catchErr } from './utils';
+import {myID} from './index';
 
 const createForm = document.forms.create;
 const popupAdd = document.querySelector('.popup_button_add');
@@ -13,17 +14,18 @@ const cards = document.querySelector('.elements');
 const submitAdd = createForm.elements.submit;
 const popupPhotoCaption = document.querySelector('.popup__caption');
 const popupPhoto = document.querySelector('.popup__img');
-const myID = '26cb9d3e86c0b7951030edec';
 
 
 function addLikeListener(cityCard, id, likeCounter) {
   cityCard.querySelector('.element__like').addEventListener('click', function (evt) {
     evt.target.classList.toggle('element__like_active');
     if (evt.target.classList.contains('element__like_active')) {
-      putLike(id);
+      putLike(id)
+      .catch(catchErr);
       likeCounter.textContent = Number(likeCounter.textContent) + 1;
     } else {
-      deleteLike(id);
+      deleteLike(id)
+      .catch(catchErr);
       likeCounter.textContent = Number(likeCounter.textContent) - 1;
     }
   }
@@ -41,9 +43,11 @@ function changeLike(cityCard, likesArray) {
 
 function addDeleteListener(cityCard, id) {
   cityCard.querySelector('.element__delete').addEventListener('click', function (evt) {
-    deleteCard(id).then(() => {
-      evt.target.parentElement.remove();
-    });
+    deleteCard(id)
+      .then(() => {
+        evt.target.closest('.element').remove();
+      })
+      .catch(catchErr)
   });
 }
 
@@ -68,6 +72,7 @@ function openImgPopap(cityCard, name, link) {
     openPopup(popupImg);
     popupPhotoCaption.textContent = name;
     popupPhoto.setAttribute('src', link);
+    popupPhoto.setAttribute('alt', name);
   })
 }
 
@@ -82,19 +87,20 @@ function handleCreateFormSubmit(evt, data) {
   evt.preventDefault();
   const cityCard = createCard(data.name, data.link, data.likes.length, data.owner._id, data._id, data.likes);
   cards.prepend(cityCard);
-  
 }
 
 function setListenerCreateForm(form) {
   form.addEventListener('submit', function (evt) {
-    renderLoading (true, submitAdd);
-    createNewCard(createInputName.value, createInputLink.value).then((data) => {
-      handleCreateFormSubmit(evt, data);
-    })
-    .finally(() => {
-      renderLoading (false, submitAdd);
-      closePopup(popupAdd);
-    })
+    renderLoading(true, submitAdd);
+    createNewCard(createInputName.value, createInputLink.value)
+      .then((data) => {
+        handleCreateFormSubmit(evt, data);
+      })
+      .then(closePopup(popupAdd))
+      .catch(catchErr)
+      .finally(() => {
+        renderLoading(false, submitAdd);
+      })
     createForm.reset();
   });
 }

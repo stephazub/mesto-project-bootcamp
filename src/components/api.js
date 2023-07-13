@@ -4,11 +4,9 @@ const config = {
     authorization: 'f0c8e955-f497-444c-995d-f8a73ebe49d1',
     'Content-Type': 'application/json'
   },
-  profileNameSelector: '.profile__name',
-  profileAboutSelector: '.profile__subtitle',
-  profileAvatarSelector: '.profile__avatar',
 }
 
+import { checkResponse } from './utils';
 
 //Обновление аватара пользователя
 
@@ -20,18 +18,10 @@ function editAvatar(avatarImage) {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      avatar: avatarImage.src
+      avatar: avatarImage
     })
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    .then(checkResponse)
 }
 
 export { editAvatar }
@@ -46,15 +36,7 @@ function putLike(id) {
       'Content-Type': 'application/json'
     }
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse)
 }
 
 export { putLike }
@@ -67,15 +49,7 @@ function deleteLike(id) {
       'Content-Type': 'application/json'
     }
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse)
 }
 
 export { deleteLike }
@@ -89,15 +63,7 @@ function deleteCard(id) {
       'Content-Type': 'application/json'
     }
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse)
 }
 
 
@@ -117,22 +83,14 @@ function createNewCard(nameCard, linkCard) {
       link: linkCard
     })
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
+    .then(checkResponse)
 }
 
 export { createNewCard };
 
 
 //Редактирование профиля
-function sendUserInfo() {
+function sendUserInfo(name, about) {
   return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
     headers: {
@@ -140,28 +98,17 @@ function sendUserInfo() {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-      name: profileName.textContent,
-      about: profileAbout.textContent
+      name: name,
+      about: about
     })
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse)
 }
 
 
 export { sendUserInfo };
 
 //Загрузка информации о пользователе с сервера
-const profileName = document.querySelector(config.profileNameSelector);
-const profileAbout = document.querySelector(config.profileAboutSelector);
-const profileAvatar = document.querySelector(config.profileAvatarSelector);
 
 function getUserInfo() {
   return fetch(`${config.baseUrl}/users/me`, {
@@ -169,22 +116,7 @@ function getUserInfo() {
       authorization: config.headers.authorization
     }
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .then((data) => {
-      console.log(data);
-      profileName.textContent = data.name;
-      profileAbout.textContent = data.about;
-      profileAvatar.setAttribute('src', data.avatar);
-      profileAvatar.setAttribute('alt', data.name);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse)
 }
 
 export { getUserInfo };
@@ -196,12 +128,7 @@ function getInitialCards() {
       authorization: config.headers.authorization
     }
   })
-    .then(res => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+    .then(checkResponse)
     .then((data) => {
       console.log(data)
       return data;
