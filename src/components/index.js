@@ -23,7 +23,6 @@ const profileSubtitle = document.querySelector('.profile__subtitle');
 const profileAvatar = document.querySelector('.profile__avatar');
 
 export const myID = await getUserInfo().then((data) => {return data._id}).catch(catchErr);
-console.log(myID);
 
 Promise.all([getUserInfo(), getInitialCards()])
   .then(([userData, cards]) => {

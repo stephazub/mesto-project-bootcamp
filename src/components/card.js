@@ -18,15 +18,24 @@ const popupPhoto = document.querySelector('.popup__img');
 
 function addLikeListener(cityCard, id, likeCounter) {
   cityCard.querySelector('.element__like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('element__like_active');
     if (evt.target.classList.contains('element__like_active')) {
-      putLike(id)
-        .catch(catchErr);
-      likeCounter.textContent = Number(likeCounter.textContent) + 1;
-    } else {
       deleteLike(id)
+        .then((data,) => {
+          likeCounter.textContent = data.likes.length;
+        })
+        .then(() => {
+          evt.target.classList.remove('element__like_active');
+        })
         .catch(catchErr);
-      likeCounter.textContent = Number(likeCounter.textContent) - 1;
+    } else {
+      putLike(id)
+        .then((data) => {
+          likeCounter.textContent = data.likes.length;
+        })
+        .then(() => {
+          evt.target.classList.add('element__like_active');
+        })
+        .catch(catchErr);
     }
   }
   );
@@ -39,6 +48,7 @@ function changeLike(cityCard, likesArray) {
     cityCard.querySelector('.element__like').classList.remove('element__like_active');
   }
 }
+
 
 
 function addDeleteListener(cityCard, id) {
