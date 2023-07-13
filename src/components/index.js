@@ -15,7 +15,7 @@ import { setListenerProfileForm, profileForm, setListenerAvatarForm, avatarForm,
 import { enableValidation } from './validate';
 
 //Загрузка информации о пользователе с сервера
-import { getUserInfo } from './api';
+import { getUserInfo, getInitialCards } from './api';
 import { data } from 'browserslist';
 
 const profileName = document.querySelector('.profile__name');
@@ -25,19 +25,15 @@ const profileAvatar = document.querySelector('.profile__avatar');
 export const myID = await getUserInfo().then((data) => {return data._id}).catch(catchErr);
 console.log(myID);
 
-//Загрузка информации о пользователе с сервера
-getUserInfo()
-  .then((data) => {
-    console.log(data)
-    profileName.textContent = data.name;
-    profileSubtitle.textContent = data.about;
-    profileAvatar.setAttribute('src', data.avatar);
-    profileAvatar.setAttribute('alt', data.name);
+Promise.all([getUserInfo(), getInitialCards()])
+  .then(([userData, cards]) => {
+    profileName.textContent = userData.name;
+    profileSubtitle.textContent = userData.about;
+    profileAvatar.setAttribute('src', userData.avatar);
+    profileAvatar.setAttribute('alt', userData.name);
+    showSixCards(cards);
   })
   .catch(catchErr);
-
-//Шесть стартовых карточек с местами
-showSixCards();
 
 //Закрытие модальных окон
 setListenerCloseModal();

@@ -12,7 +12,6 @@ const popupProfile = document.querySelector('.popup_button_profile');
 
 const avatarForm = document.forms.avatar;
 const avatarInputLink = avatarForm.elements.link
-const avatarImage = document.querySelector('.profile__avatar');
 const popupAvatar = document.querySelector('.popup_button_avatar');
 
 const submitProfile = profileForm.elements.submit;

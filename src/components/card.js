@@ -1,8 +1,8 @@
 import { openPopup, closePopup } from './modal';
-import { cities, createNewCard, deleteCard, putLike, deleteLike } from './api';
+import { createNewCard, deleteCard, putLike, deleteLike } from './api';
 import { data } from 'autoprefixer';
 import { renderLoading, catchErr } from './utils';
-import {myID} from './index';
+import { myID } from './index';
 
 const createForm = document.forms.create;
 const popupAdd = document.querySelector('.popup_button_add');
@@ -21,11 +21,11 @@ function addLikeListener(cityCard, id, likeCounter) {
     evt.target.classList.toggle('element__like_active');
     if (evt.target.classList.contains('element__like_active')) {
       putLike(id)
-      .catch(catchErr);
+        .catch(catchErr);
       likeCounter.textContent = Number(likeCounter.textContent) + 1;
     } else {
       deleteLike(id)
-      .catch(catchErr);
+        .catch(catchErr);
       likeCounter.textContent = Number(likeCounter.textContent) - 1;
     }
   }
@@ -76,12 +76,14 @@ function openImgPopap(cityCard, name, link) {
   })
 }
 
-function showSixCards() {
-  cities.forEach((element) => {
+function showSixCards(data) {
+  data.forEach((element) => {
     const cityCard = createCard(element.name, element.link, element.likes.length, element.owner._id, element._id, element.likes);
     cards.append(cityCard);
   });
 }
+
+
 
 function handleCreateFormSubmit(evt, data) {
   evt.preventDefault();
@@ -104,6 +106,7 @@ function setListenerCreateForm(form) {
     createForm.reset();
   });
 }
+
 
 export { showSixCards, setListenerCreateForm, createForm };
 

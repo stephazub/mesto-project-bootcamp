@@ -129,15 +129,9 @@ function getInitialCards() {
     }
   })
     .then(checkResponse)
-    .then((data) => {
-      console.log(data)
-      return data;
-    })
     .catch((err) => {
       console.log(err);
     });
 }
 
-const cities = await getInitialCards();
-
-export { cities };
+export { getInitialCards };
