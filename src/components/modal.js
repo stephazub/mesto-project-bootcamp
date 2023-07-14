@@ -28,7 +28,7 @@ function openPopup(popup) {
 function setListenerOpenModal(button, popup) {
   button.addEventListener('click', function(){
     openPopup(popup);
-    const submitButon = document.querySelector('.form__submit');
+    const submitButon = popup.querySelector('.form__submit');
     submitButon.classList.add('form__submit_status_inactive');
     submitButon.disabled = true;
     editProfileForm();

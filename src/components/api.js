@@ -128,10 +128,7 @@ function getInitialCards() {
       authorization: config.headers.authorization
     }
   })
-    .then(checkResponse)
-    .catch((err) => {
-      console.log(err);
-    });
+    .then(checkResponse);
 }
 
 export { getInitialCards };
